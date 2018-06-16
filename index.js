@@ -1,5 +1,9 @@
 const SlackBot = require('slackbots');
 const axios = require('axios');
+const words = {
+  please : 'bambi',
+  no: 'nedda'
+ }
 
 const bot = new SlackBot({
     token: 'xoxb-373454261911-382395365605-IUwpIHXTCRW5488P5Qdh0puYWPL',
@@ -40,7 +44,7 @@ function handleMessage(message) {
 }
 
 function translateWord() {
-    const word = "bambi";
+    //const word = "bambi";
     const params = {
         icon_emoji: ':smiley:'
     }
