@@ -9,6 +9,12 @@ const bot = new SlackBot({
   name: "translate"
 });
 
+let words = {};
+
+const params = {
+  icon_emoji: ":smiley:"
+};
+
 /**
  * Error Alert
  */
@@ -18,38 +24,19 @@ bot.on("message", data => {
   if (data.type !== "message") {
     return;
   }
-
+  
+  axios.get("https://raw.githubusercontent.com/WPLuganda/slackdictionary/master/words.json")
+ .then(res => {
+    const words = res.data;
+  })
+  
   handleMessage(data.text);
 });
 
-function handleMessage(message) {
-  axios
-    .get(
-      "https://raw.githubusercontent.com/WPLuganda/slackdictionary/master/words.json"
-    )
-    .then(res => {
-      const words = res.data;
-      for (key in words) {
-        if (message.includes(" " + key)) {
-          const params = {
-            icon_emoji: ":smiley:"
-          };
-
-          bot.postMessageToChannel(channel, `${key} = ${words[key]}`, params);
-        }
-      }
-    });
+function handleMessage( message ) {
+  for (key in words) {
+        if ( message.includes(" " + key) ) {
+          bot.postMessageToChannel(channel, `${key} = ${words.key}`, params);
+     }
+  }
 }
-
-//start Handler
-// bot.on("start", () => {
-//   const params = {
-//     icon_emoji: ":smiley:"
-//   };
-
-//   bot.postMessageToChannel(
-//     channel,
-//     "Type @translate leave a space and the desired word then return to translate from English to Luganda.",
-//     params
-//   );
-// });
