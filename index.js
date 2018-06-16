@@ -49,7 +49,7 @@ function translateWord() {
         icon_emoji: ':smiley:'
     }
 
-    bot.postMessageToChannel( channel, `Please = ${word}`, params );
+    bot.postMessageToChannel( channel, `Please = ${words.please}`, params );
 }
 
 /*
